@@ -10,19 +10,24 @@ class App extends Component {
     exchanges: [],
   };
 
-  getExchanges = () => {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then((response) => response.json())
-      .then((result) => this.setState({ exchanges: result }));
+  getExchanges = (exchangeType) => {
+  
+    
   };
-  componentDidMount(){
-    this.getExchanges();
+  async componentDidMount(exchangeType){
+    if(!exchangeType){
+      exchangeType = "USD";
+    }
+    const a = await fetch('https://api.exchangeratesapi.io/latest?base='+ exchangeType);
+    const b = await a.json();
+    this.setState({exchanges:Object.entries(b.rates)});
+    console.log(this.state.exchanges);
   }
   render() {
     return (
       <Container className="mt-4">
         <HomePageNavbar />
-        <HomePage />
+        <HomePage exchanges={this.state.exchanges} />
       </Container>
     );
   }

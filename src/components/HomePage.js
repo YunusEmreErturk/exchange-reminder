@@ -10,6 +10,9 @@ import {
   Table
 } from "reactstrap";
 export default class home extends Component {
+    async componentDidMount(){
+        console.log(this.props.exchanges)
+    }
   render() {
     return (
       <div>
@@ -47,30 +50,20 @@ export default class home extends Component {
       <thead>
         <tr>
           <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
+          <th>Exchange Type</th>
+          <th>Amount</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
+          {this.props.exchanges.map(exchange =>(
+              <tr key={exchange.key}>
+              <th scope="row">1</th>
+              <td>{exchange[0]}</td>
+              <td>{exchange[1]}</td>
+            </tr>
+          ))
+          }
+        
       </tbody>
     </Table>
         </Container>
