@@ -14,13 +14,13 @@ class App extends Component {
   
     
   };
-  async componentDidMount(exchangeType){
+  componentDidMount(exchangeType){
     if(!exchangeType){
-      exchangeType = "USD";
+      exchangeType = "usd";
     }
-    const a = await fetch('https://api.exchangeratesapi.io/latest?base='+ exchangeType);
-    const b = await a.json();
-    this.setState({exchanges:Object.entries(b.rates)});
+   fetch('http://localhost:3000/api/latest_rates')
+   .then(response => response.json())
+   .then(result => this.setState({exchanges:result}));
     console.log(this.state.exchanges);
   }
   render() {

@@ -51,15 +51,17 @@ export default class home extends Component {
         <tr>
           <th>#</th>
           <th>Exchange Type</th>
-          <th>Amount</th>
+          <th>Buy</th>
+          <th>Sale</th>
         </tr>
       </thead>
       <tbody>
-          {this.props.exchanges.map(exchange =>(
-              <tr key={exchange.key}>
-              <th scope="row">1</th>
+          {this.props.exchanges.map((exchange,index) =>(
+              <tr key={index}>
+              <th scope="row">{index}</th>
               <td>{exchange[0]}</td>
-              <td>{exchange[1]}</td>
+              <td>{exchange[1].Alış}</td>
+              <td>{exchange[1].Satış}</td>
             </tr>
           ))
           }
