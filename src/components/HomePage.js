@@ -11,16 +11,28 @@ import {
   Form,
 } from "reactstrap";
 import axios from "axios";
+import ExchangeTable from "./ExchangeTable";
 export default class home extends Component {
   // async componentDidMount() {
   //   console.log(this.props.exchanges);
   // }
 
   state = {
+    exchanges:[],
     exchangeType: "",
     personalRate: "",
     increaseOrDecrease: "",
   };
+
+  getExchanges = async () => {
+    await fetch('https://api.exchangeratesapi.io/latest?base=USD')
+    .then(response => response.json())
+    .then(result => this.setState({exchanges:Object.entries(result.rates)}));
+     
+   };
+   componentDidMount(){
+     this.getExchanges();
+   }
 
   onChangHandler = (event) => {
     let name = event.target.name;
@@ -53,7 +65,6 @@ export default class home extends Component {
       .post(url, data)
       .then((response) => console.log(response))
       .catch((e) => console.log(e));
-    console.log("deneene");
     console.log("deneene");
   };
   render() {
@@ -96,6 +107,8 @@ export default class home extends Component {
             Kaydet
           </Button>
         </Form>
+        <Button onClick={this.getExchanges} color="warning">Update Exchange</Button>
+        <ExchangeTable exchanges={this.state.exchanges} ></ExchangeTable>
       </Container>
     );
   }
