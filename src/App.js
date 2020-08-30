@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
 import HomePage from "./components/HomePage";
 import HomePageNavbar from "./components/Navbar";
 import { Container } from "reactstrap";
@@ -10,18 +8,17 @@ class App extends Component {
     exchanges: [],
   };
 
-  getExchanges = (exchangeType) => {
-  
-    
-  };
-  componentDidMount(exchangeType){
-    if(!exchangeType){
-      exchangeType = "usd";
-    }
-   fetch('http://localhost:3000/api/latest_rates')
+  getExchanges = async () => {
+   await fetch('https://jsonplaceholder.typicode.com/users')
    .then(response => response.json())
    .then(result => this.setState({exchanges:result}));
     console.log(this.state.exchanges);
+    
+  };
+  componentDidMount(){
+    console.log("aq1");
+    this.getExchanges();
+    console.log("aq");
   }
   render() {
     return (

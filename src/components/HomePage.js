@@ -7,68 +7,95 @@ import {
   FormGroup,
   Label,
   Button,
-  Table
+  Table,
+  Form,
 } from "reactstrap";
+import axios from "axios";
 export default class home extends Component {
-    async componentDidMount(){
-        console.log(this.props.exchanges)
-    }
+  // async componentDidMount() {
+  //   console.log(this.props.exchanges);
+  // }
+
+  state = {
+    exchange_type: "",
+    my_rate: "",
+    increase_decrease: "",
+  };
+
+  onChangHandler = (event) => {
+    let name = event.target.name;
+    let value = event.target.value;
+
+    this.setState({ [name]: value });
+  };
+
+  onSubmitHandler = async (event) => {
+    event.preventDefault();
+    // fetch('http://localhost:3000/api/add_rate',
+    // {
+    //   method:'POST',
+    //   headers:{
+    //     'Accept':'application/json',
+    //     'Content-Type':'application/json'
+    //   },
+    //   body:JSON.stringify({
+    //
+    //   })
+    // })
+    var data = {
+      user_name: "Test",
+      exchangeType: this.state.increase_decrease,
+      myRate: this.state.my_rate,
+    };
+    console.log("wow");
+    var url = "https://localhost:44388/api/app/register";
+    await axios
+      .post(url, data)
+      .then((response) => console.log(response))
+      .catch((e) => console.log(e));
+      console.log("deneene");
+      console.log("deneene");
+  };
   render() {
     return (
       <div>
-        <Container>
-          <Row>
-            <Col className="col-md-6">
-              <FormGroup>
-                <Label for="exampleSelect">Exchange Type</Label>
-                <Input type="select" name="select">
-                  <option>USD</option>
-                  <option>EURO</option>
-                  <option>GOLD</option>
-                  <option>PLATIN</option>
-                </Input>
-              </FormGroup>
-            </Col>
-            <Col className="col-md-6">
-              <FormGroup>
-                <Label for="exampleSelect">My Rate</Label>
-                <Input type="text" name="text" id="exampleSelect"></Input>
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Col className="col-md-6">
-              <FormGroup>
-                <Input type="text" name="text" id="exampleSelect"></Input>
-              </FormGroup>
-            </Col>
-            <Col className="col-md-6">
-              <Button block> Submit</Button>
-            </Col>
-          </Row>
-          <Table style={{marginTop:"50px"}} striped>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Exchange Type</th>
-          <th>Buy</th>
-          <th>Sale</th>
-        </tr>
-      </thead>
-      <tbody>
-          {this.props.exchanges.map((exchange,index) =>(
-              <tr key={index}>
-              <th scope="row">{index}</th>
-              <td>{exchange[0]}</td>
-              <td>{exchange[1].Alış}</td>
-              <td>{exchange[1].Satış}</td>
-            </tr>
-          ))
-          }
-        
-      </tbody>
-    </Table>
-        </Container>
+        <Form onSubmit={this.onSubmitHandler}>
+          <FormGroup>
+            <Label for="exchange_type">Exchange Type</Label>
+            <Input
+              type="select"
+              name="exchange_type"
+              id="exchange_type"
+              onChange={this.onChangHandler}
+            >
+              <option>USD</option>
+              <option>EURO</option>
+            </Input>
+          </FormGroup>
+          <FormGroup>
+            <Label for="my_rate">My Rate</Label>
+            <Input
+              type="number"
+              name="my_rate"
+              id="my_rate"
+              placeholder="Your rate"
+              onChange={this.onChangHandler}
+            ></Input>
+          </FormGroup>
+          <FormGroup>
+            <Label for="increase_decrease">Increase-Decrease</Label>
+            <Input
+              type="number"
+              name="increase_decrease"
+              id="increase_decrease"
+              placeholder="Incerase or Decrease "
+              onChange={this.onChangHandler}
+            ></Input>
+          </FormGroup>
+          <Button color="info" type="submit">
+            Kaydet
+          </Button>
+        </Form>
       </div>
     );
   }
