@@ -17,9 +17,9 @@ export default class home extends Component {
   // }
 
   state = {
-    exchange_type: "",
-    my_rate: "",
-    increase_decrease: "",
+    exchangeType: "",
+    personalRate: "",
+    increaseOrDecrease: "",
   };
 
   onChangHandler = (event) => {
@@ -43,29 +43,29 @@ export default class home extends Component {
     //   })
     // })
     var data = {
-      user_name: "Test",
-      exchangeType: this.state.increase_decrease,
-      myRate: this.state.my_rate,
+      increaseOrDecrease: this.state.increaseOrDecrease,
+      personalRate: this.state.personalRate,
+      exchangeType: this.state.exchangeType,
     };
     console.log("wow");
-    var url = "https://localhost:44388/api/app/register";
+    var url = "https://localhost:44343/api/exchange/create_exchange";
     await axios
       .post(url, data)
       .then((response) => console.log(response))
       .catch((e) => console.log(e));
-      console.log("deneene");
-      console.log("deneene");
+    console.log("deneene");
+    console.log("deneene");
   };
   render() {
     return (
-      <div>
+      <Container>
         <Form onSubmit={this.onSubmitHandler}>
           <FormGroup>
-            <Label for="exchange_type">Exchange Type</Label>
+            <Label for="exchangeType">Exchange Type</Label>
             <Input
               type="select"
-              name="exchange_type"
-              id="exchange_type"
+              name="exchangeType"
+              id="exchangeType"
               onChange={this.onChangHandler}
             >
               <option>USD</option>
@@ -73,21 +73,21 @@ export default class home extends Component {
             </Input>
           </FormGroup>
           <FormGroup>
-            <Label for="my_rate">My Rate</Label>
+            <Label for="personalRate">My Rate</Label>
             <Input
               type="number"
-              name="my_rate"
-              id="my_rate"
+              name="personalRate"
+              id="personalRate"
               placeholder="Your rate"
               onChange={this.onChangHandler}
             ></Input>
           </FormGroup>
           <FormGroup>
-            <Label for="increase_decrease">Increase-Decrease</Label>
+            <Label for="increaseOrDecrease">Increase-Decrease</Label>
             <Input
               type="number"
-              name="increase_decrease"
-              id="increase_decrease"
+              name="increaseOrDecrease"
+              id="increaseOrDecrease"
               placeholder="Incerase or Decrease "
               onChange={this.onChangHandler}
             ></Input>
@@ -96,7 +96,7 @@ export default class home extends Component {
             Kaydet
           </Button>
         </Form>
-      </div>
+      </Container>
     );
   }
 }

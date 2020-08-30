@@ -16,9 +16,7 @@ class App extends Component {
     
   };
   componentDidMount(){
-    console.log("aq1");
     this.getExchanges();
-    console.log("aq");
   }
   render() {
     return (
